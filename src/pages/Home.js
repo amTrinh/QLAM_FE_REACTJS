@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import BannerPlaylist from "../components/BannerPlaylist";
 import TopTrendingArtist from "../components/TopTrendingArtist";
@@ -6,22 +6,34 @@ import MusicPlayerContext from "../MusicPlayerContext";
 import HomePlaylistItem from "../components/Item/HomePlaylistItem";
 import NewSongs from "../components/NewSongs";
 import NewSongRank from "../components/NewSongRank";
-import { PlaylistData } from "../components/Data/PlaylistData";
-import { AlbumData } from "../components/Data/AlbumData";
+// import { PlaylistData } from "../components/Data/PlaylistData";
+// import { AlbumData } from "../components/Data/AlbumData";
 import "../styles/PlaylistAlbum.css";
 import "../styles/Home.css";
 import SidebarContext from "../SidebarContext";
-import { getAllPlaylists } from "../components/API/getAllPlaylists";
+// import { getAllPlaylists } from "../components/API/getAllPlaylists";
 import HomeAlbumItem from "../components/Item/HomeAlbumItem";
 import { getAllAlbum } from "../components/API/getAllAlbums";
+import playlistApi from "../apiData/PlaylistApi";
+import RecentlyPlaylistInHome from "../ListOfItem/RecentlyPlaylistInHome";
+import RecommendationPlaylist from "../ListOfItem/RecommendPlaylist";
+import AlbumHotInHome from "../ListOfItem/AlbumHotInHome";
 
 function Home() {
   const song = useContext(MusicPlayerContext);
   const sidebar = useContext(SidebarContext);
+
+    const [getAllPlaylists, setPlaylists] = useState([]);
+    useEffect(() => {
+      playlistApi.getAllPlaylists().then((res) => {
+        setPlaylists(res.data);
+      });
+    }, []);
+    // console.log(getAllPlaylists);
+
   return (
     <div className="container">
       <BannerPlaylist />
-
       <div className="categoryHeader">
         <p className="categoryTitle">Nghe gần đây</p>
         <Link
@@ -30,34 +42,35 @@ function Home() {
           onClick={() => {
             localStorage.setItem("sidebarPath", JSON.stringify("Gần đây"));
             sidebar.setPathName("Gần đây");
-          }}
-        >
+          }}>
           <p>Tất cả &gt;</p>
         </Link>
       </div>
       <div className="homeRecentlyPlaylist">
-        {getAllPlaylists.map(
+        <RecentlyPlaylistInHome/>
+        {/* {getAllPlaylists.map(
           (item, key) =>
             key < 4 && (
               <div className="listPlaylists">
-                <HomePlaylistItem key={key} id={item.id} />
+                <HomePlaylistItem id={item.id} />
               </div>
             )
-        )}
+        )} */}
       </div>
 
       <div className="categoryHeader">
         <p className="categoryTitle">Đề xuất cho bạn</p>
       </div>
       <div className="recommendationPlaylist">
-        {PlaylistData.map(
+        <RecommendationPlaylist/>
+        {/* {getAllPlaylists.map(
           (item, key) =>
             key < 4 && (
               <div className="listPlaylists">
                 <HomePlaylistItem key={key} id={item.id} />
               </div>
             )
-        )}
+        )} */}
       </div>
 
       <div className="categoryHeader">
@@ -71,8 +84,7 @@ function Home() {
               JSON.stringify("Mới phát hành")
             );
             sidebar.setPathName("Mới phát hành");
-          }}
-        >
+          }}>
           <p>Tất cả &gt;</p>
         </Link>
       </div>
@@ -87,14 +99,15 @@ function Home() {
         <p className="categoryTitle">Album Hot</p>
       </div>
       <div className="albumHot">
-        {getAllAlbum.map(
+        <AlbumHotInHome/>
+        {/* {getAllAlbum.map(
           (item, key) =>
             key < 4 && (
               <div className="listPlaylists">
                 <HomeAlbumItem key={key} item={item} />
               </div>
             )
-        )}
+        )} */}
       </div>
 
       <div className="categoryHeader">
@@ -105,8 +118,7 @@ function Home() {
           onClick={() => {
             localStorage.setItem("sidebarPath", JSON.stringify("BXH"));
             sidebar.setPathName("BXH");
-          }}
-        >
+          }}>
           <p>Tất cả &gt;</p>
         </Link>
       </div>

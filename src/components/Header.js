@@ -3,12 +3,15 @@ import { SearchBar } from "./SearchBar";
 import InputSearch from "./InputSearch";
 import SettingsIcon from "@mui/icons-material/Settings";
 import "../styles/Header.css";
-import { Link } from "react-router-dom";
+
 import { Box, Toolbar } from "@mui/material";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 
+import Login from "./Item/Login";
+
 function Header() {
+  
   return (
     <div className="header">
       <Toolbar>
@@ -55,9 +58,7 @@ function Header() {
                 <div>Do something here ...</div>
               </Popup>
             </div>
-            <Link to={"/signIn"}>
-              <button className="signInBtn">Đăng nhập</button>
-            </Link>
+            <Login/>
           </div>
         </Box>
       </Toolbar>

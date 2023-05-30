@@ -77,7 +77,7 @@ class TrackItem extends Component {
         </div>
 
         <div className="songDetail">
-          <div>{this.props.item.songName}</div>
+          <div className='songTitle'>{this.props.item.songName}</div>
           <div className="artist">
             {this.props.item.representation.map((child, index) => (
               <span key={index} item={child}>

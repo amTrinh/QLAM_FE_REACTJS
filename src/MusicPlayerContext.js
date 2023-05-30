@@ -10,7 +10,7 @@ export const MusicPlayerProvider = ({ children }) => {
       : []
   );
   const [song, setSong] = useState(
-    localStorage.getItem("song") !== null
+    localStorage.getItem("song") !== undefined
       ? JSON.parse(localStorage.getItem("song"))
       : ""
   );

@@ -7,6 +7,7 @@ import {
 } from "@mui/icons-material";
 
 function ArtistAlbumItem({ item }) {
+  console.log(item);
   function getReleaseYear(dateParam) {
     const date = new Date(dateParam);
     return date.getFullYear();

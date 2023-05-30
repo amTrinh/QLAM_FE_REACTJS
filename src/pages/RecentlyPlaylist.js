@@ -1,11 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import PlaylistItem from "../components/Item/PlaylistItem";
 import MusicPlayerContext from "../MusicPlayerContext";
-import { RecentlyPlaylistData } from "../components/Data/RecentlyPlaylistData";
 import { Grid } from "@mui/material";
-import { getRecentlyPlaylist } from "../components/API/getRecentlyPlaylist";
+// import { getRecentlyPlaylist } from "../components/API/getRecentlyPlaylist";
+import playlistApi from "../apiData/PlaylistApi";
 
 function RecentlyPlaylist() {
+      const [getRecentlyPlaylist, setPlaylists] = useState([]);
+      useEffect(() => {
+        playlistApi.getAllPlaylists().then((res) => {
+          setPlaylists(res.data);
+        });
+      }, []);
   const song = useContext(MusicPlayerContext);
   return (
     <div>

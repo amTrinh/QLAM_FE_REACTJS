@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Carousel from "react-simply-carousel";
 import "../styles/BannerPlaylist.css";
-import { PlaylistData } from "./Data/PlaylistData";
+// import { PlaylistData } from "./Data/PlaylistData";
 import { Link } from "react-router-dom";
-import { getAllPlaylists } from "./API/getAllPlaylists";
-
+// import { getAllPlaylists } from "./API/getAllPlaylists";
+import playlistApi from "../apiData/PlaylistApi";
 function BannerPlaylist() {
   const [activeSlide, setActiveSlide] = useState(0);
-  // function getPlaylistImgUrl(url) {
-  //   return require(`../assets/` + url);
-  // }
+  const [getAllPlaylists, setPlaylists] = useState([]);
+  useEffect(() => {
+    playlistApi.getAllPlaylists().then((res) => {
+      setPlaylists(res.data);
+    });
+  }, []);
+
   return (
     <div className="slider_wrapper">
       <Carousel
@@ -75,15 +79,14 @@ function BannerPlaylist() {
             minWidth: 350,
             maxWidth: 1095,
           },
-        ]}
-      >
+        ]}>
         {getAllPlaylists.map((item, index) => (
           <div className="slider">
             <Link to={`/playlistDetail/${item.playlistName}`} state={item.id}>
               <img
                 key={index}
                 title={item.playlistName}
-                src={item.playlistImg}
+                src={item.playlistImage}
                 className="image"
                 alt={item.playlistName}
               />

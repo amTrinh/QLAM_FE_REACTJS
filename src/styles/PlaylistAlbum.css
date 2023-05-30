@@ -8,6 +8,9 @@
     overflow: hidden;
     border-radius: 20px;
 }
+.content_color_black{
+    color: black !important;
+}
 .playlistItem img {
     width: 300px;
     min-width: 150px;

@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../styles/TopRank.css";
-import { getAllAlbum } from "../components/API/getAllAlbums";
+// import { getAllAlbum } from "../components/API/getAllAlbums";
 import HomeAlbumItem from "../components/Item/HomeAlbumItem";
-
+import albumApi from "../apiData/AlbumApi";
 function TopRank() {
+        const [getAllAlbum, setAlbums] = useState([]);
+        useEffect(() => {
+          albumApi.getAllAlbums().then((res) => {
+            setAlbums(res.data);
+          });
+        }, []);
   return (
     <div className="top100Container">
       <h1 className="top100Heading">TOP 100</h1>

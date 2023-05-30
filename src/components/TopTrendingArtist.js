@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArtistsData } from "../components/Data/ArtistsData";
 import "../styles/TopTrendingArtist.css";
+import artistApi from "../apiData/ArtistApi";
 
 function TopTrendingArtist() {
-  function getPlaylistImgUrl(url) {
-    return require(`../assets/` + url);
-  }
+  const [ArtistsData, setArtists] = useState([]);
+  useEffect(() => {
+    artistApi.getAllartists().then((res) => {
+      setArtists(res.data);
+    });
+  }, []);
+
+  // console.log(ArtistsData);
   return (
     <div className="topTrendingArtists" style={{ width: `100%` }}>
       {ArtistsData.map(

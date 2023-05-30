@@ -6,9 +6,17 @@ import "../styles/NewRelease.css";
 import { Link, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import MusicPlayerContext from "../MusicPlayerContext";
-import { SongData } from "../components/Data/SongData";
+// import { SongData } from "../components/Data/SongData";
+import songApi from "../apiData/SongApi";
 
 function NewRelease() {
+  const [SongData, setSongs] = useState([]);
+  useEffect(() => {
+    songApi.getAllSongsRelease().then((res) => {
+      setSongs(res.data);
+    });
+  }, []);
+  // console.log(SongData);
   const musicPlayer = useContext(MusicPlayerContext);
   const [rnd, setRnd] = useState(0);
   const { search } = useLocation();

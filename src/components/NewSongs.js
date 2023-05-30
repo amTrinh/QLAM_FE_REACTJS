@@ -2,10 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useContext } from "react";
 import MusicPlayerContext from "../MusicPlayerContext";
 import TrackItem from "./Item/TrackItem";
-import { SongData } from "./Data/SongData";
+// import { SongData } from "./Data/SongData";
 import "../styles/NewSongs.css";
+import songApi from "../apiData/SongApi";
 
 function NewSongs() {
+    const [SongData, setSongs] = useState([]);
+    useEffect(() => {
+      songApi.getAllSongs().then((res) => {
+        setSongs(res.data);
+      });
+    }, []);
   const [toggleState, setToggleState] = useState(1);
   const tracksByCountry = [];
   SongData.map((item, index) => {

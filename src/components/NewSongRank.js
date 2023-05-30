@@ -1,11 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
 import TrackItem from './Item/TrackItem';
-import { SongData } from './Data/SongData';
+// import { SongData } from './Data/SongData';
 import MusicPlayerContext from '../MusicPlayerContext';
 import "../styles/NewSongRank.css";
 import { Link } from 'react-router-dom'
-
+import songApi from "../apiData/SongApi";
 function NewSongRank() {
+    const [SongData, setSongs] = useState([]);
+    useEffect(() => {
+      songApi.getAllSongs().then((res) => {
+        setSongs(res.data);
+      });
+    }, []);
+
     const tracks = SongData;
     const song = useContext(MusicPlayerContext);
     useEffect(() => {

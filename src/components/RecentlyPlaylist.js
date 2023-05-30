@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/DiscoveryRecentlyPlaylist.css";
-import { MyPlaylistData } from "./Data/MyPlaylistData";
-
+// import { MyPlaylistData } from "./Data/MyPlaylistData";
+import playlistApi from "../apiData/PlaylisttApi";
 function RecentlyPlaylist() {
-  // function getPlaylistImgUrl(url) {
-  //   return require(url);
-  // }
+  const [MyPlaylistData, setPlaylists] = useState([]);
+  useEffect(() => {
+    playlistApi.getAllplaylists().then((res) => {
+      setPlaylists(res.data);
+    });
+  }, []);
   return (
     <div className="recentlyListen" style={{ width: `100%` }}>
       {MyPlaylistData.map(

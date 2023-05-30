@@ -1,19 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PlaylistItem from "./Item/PlaylistItem";
-import { MyPlaylistData } from "./Data/MyPlaylistData";
 import "../styles/MyPlaylist.css";
 import { Card, Typography, Grid } from "@mui/material";
 import { AddCircleRounded } from "@mui/icons-material";
-import { getMyPlaylists } from "./API/getMyPlaylists";
+// import { getMyPlaylists } from "./API/getMyPlaylists";
+import playlistApi from "../apiData/PlaylistApi";
 
 function MyPlaylist() {
+  const userid = localStorage.getItem("user");
+  const [CreatedPlaylist, setCreatedPlaylists] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const cpl = await playlistApi.getCreatedPlaylistByUserId(userid);
+      setCreatedPlaylists(cpl.data);
+      console.log(CreatedPlaylist);
+    })();
+  }, []);
+
   return (
     <Grid
       container
       className="myPlaylist"
       rowSpacing={1}
-      columnSpacing={{ sm: 2, xs: 1 }}
-    >
+      columnSpacing={{ sm: 2, xs: 1 }}>
       <Grid item sm={3} xs={4}>
         <Card
           className="createNew"
@@ -23,8 +33,7 @@ function MyPlaylist() {
             backgroundColor: "#FEE9EF",
             borderRadius: "15px",
             marginRight: 0,
-          }}
-        >
+          }}>
           <AddCircleRounded
             sx={{
               fontSize: "5vw",
@@ -38,7 +47,7 @@ function MyPlaylist() {
           </Typography>
         </Card>
       </Grid>
-      {getMyPlaylists.map((item, index) => (
+      {CreatedPlaylist.map((item, index) => (
         <Grid item sm={3} xs={4}>
           <PlaylistItem item={item} key={index} />
         </Grid>

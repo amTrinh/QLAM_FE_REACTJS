@@ -1,36 +1,37 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState , useEffect} from "react";
 import MusicPlayerContext from "../MusicPlayerContext";
 import Track from "../components/Item/TrackItem";
 import "../styles/PageNewSongs.css";
-import {SongData} from '../components/Data/SongData';
+// import {SongData} from '../components/Data/SongData';
+import songApi from "../apiData/SongApi";
 
 function NewSongs() {
   const [toggleState, setToggleState] = useState(1);
   const tracksByCountry = [];
+  const [SongData, setSongs] = useState([]);
+  useEffect(() => {
+    songApi.getAllSongsRelease().then((res) => {
+      setSongs(res.data);
+    });
+  }, []);
   SongData.map((item, index) => {
     if (toggleState === 1) {
       tracksByCountry.push(item);
     } 
     else if (toggleState === 2) {
-      item.country.map((child) => {
-        if (child.id === "1") {
+        if (item.country.id === 1) {
           tracksByCountry.push(item);
         }
-      });
     } 
     else if (toggleState === 3) {
-      item.country.map((child) => {
-        if (child.id === "3" || child.id === "4") {
-          tracksByCountry.push(item);
-        }
-      });
+      if (item.country.id === 2) {
+        tracksByCountry.push(item);
+      }
     }
     else {
-      item.country.map((child) => {
-        if (child.id !== "1" && child.id !== "3" && child.id !== "4") {
-          tracksByCountry.push(item);
-        }
-      });
+      if (item.country.id === 3) {
+        tracksByCountry.push(item);
+      }
     }
   });
   const toggleTab = (index) => {

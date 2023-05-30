@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function AlbumItem({ item }) {
+  // console.log(item);
   function printReleaseDate(dateParam) {
     const date = new Date(dateParam);
     const DAY_IN_MS = 86400000;

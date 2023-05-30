@@ -11,9 +11,9 @@ import { Link } from "react-router-dom";
 
 class SongItem extends Component {
   render() {
-    function getImgUrl(url) {
-      return require("../../assets/" + url);
-    }
+    // function getImgUrl(url) {
+    //   return require("../../assets/" + url);
+    // }
     return (
       <Card className={"cardSong"}>
         <CardContent className={"songItem"}>
@@ -47,7 +47,7 @@ class SongItem extends Component {
                 borderRadius: `3px`,
                 position: "relative",
               }}
-              src={getImgUrl(`${this.props.item.songImage}`)}
+              src={this.props.item.songImage}
               alt={this.props.item.songName}
             />
             <button className="playBtn">

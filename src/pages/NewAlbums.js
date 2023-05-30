@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import MusicPlayerContext from "../MusicPlayerContext";
 import {
   FavoriteBorderOutlined,
@@ -7,11 +7,18 @@ import {
 } from "@mui/icons-material";
 import AlbumItem from "../components/Item/AlbumItem";
 import "../styles/NewAlbums.css";
-import { AlbumData } from "../components/Data/AlbumData";
-import { getAllAlbum } from "../components/API/getAllAlbums";
+// import { AlbumData } from "../components/Data/AlbumData";
+// import { getAllAlbum } from "../components/API/getAllAlbums";
 import { getAlbumDetail } from "../service";
+import albumApi from "../apiData/AlbumApi";
 
 function NewAlbums() {
+      const [getAllAlbum, setAlbums] = useState([]);
+      useEffect(() => {
+        albumApi.getAllAlbumsRecently().then((res) => {
+          setAlbums(res.data);
+        });
+      }, []);
   const [toggleState, setToggleState] = useState(1);
   const albumsByCountry = [];
   getAllAlbum.map((item, index) => {
